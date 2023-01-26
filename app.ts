@@ -2,9 +2,12 @@ import express from 'express';
 import * as errorHandler from "./middlewares/errorMiddleware";
 import api from './api/index';
 import 'dotenv/config';
+
 import { DataSource } from 'typeorm';
 import { User } from "./api/user/user.models";
 import { Car } from "./api/car/car.models";
+import { Box } from "./api/box/box.models";
+import { Visit } from "./api/visit/visit.models";
 
 class App {
   public express: express.Application;
@@ -44,7 +47,7 @@ export const dataSource = new DataSource({
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [User, Car],
+  entities: [User, Car, Box, Visit],
   synchronize: true
 });
 

@@ -22,7 +22,8 @@ export class User {
 
   @Column()
   @IsNotEmpty()
-  role: string;
+  @Length(1)
+  role: 'c'|'a' //c - клиент, a - админ
 
   @Column()
   @Length(2, 100)

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { ExtractJwt, Strategy, JwtFromRequestFunction } from "passport-jwt";
 import passport from 'passport';
 import 'dotenv/config';

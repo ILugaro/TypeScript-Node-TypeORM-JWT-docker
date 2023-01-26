@@ -1,5 +1,5 @@
-import { Router } from 'express'; //old
-import Controller from './user.controller'; //old
+import { Router } from 'express';
+import Controller from './user.controller'; 
 import Auth from '../../middlewares/AuthController'
 
 export default class CarRoutes {

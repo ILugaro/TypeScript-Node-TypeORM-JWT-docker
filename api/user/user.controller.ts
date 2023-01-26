@@ -58,11 +58,7 @@ class Controller {
         const token = jwt.sign(
           {
             userId: user.id,
-            login: user.login,
-            phone: user.phone,
             role: user.role,
-            firstName: user.firstName,
-            lastName: user.lastName,
           },
           JWT_SECRET_KEY,
           {
@@ -78,7 +74,7 @@ class Controller {
         const user = new User();
 
         user.password = password;
-        user.role = "USER";
+        user.role = 'c';
         user.firstName = firstName;
         user.lastName = lastName;
         user.phone = phone;
