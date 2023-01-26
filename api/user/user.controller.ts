@@ -13,21 +13,30 @@ class Controller {
     // Аунтификация
     static login = async (req: Request, res: Response): Promise<Response> => {
         //дешифровка Basic авторизации
-        const loginIsPhone:boolean = req.body.phone;
+        let method:('phone'|'login') = req.body.method;
+
         const b64auth = (req.headers.authorization || '').split(' ')[1] || ''
         const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':')
         
          if (!(login && password)) {
-          res.status(400).send('Для авторизации необходим логин/телефон и пароль!');
+          return res.status(400).send('Для авторизации необходим логин/телефон и пароль!');
         } 
     
         const userRepository = dataSource.getRepository(User);
         let user: User;
 
         //определяется тип аунтификации - по номеру или по логину.
+        
         let obj_login:{phone?:string, login?:string} = {};
-        if (loginIsPhone) {obj_login.phone = login}
-        else {obj_login.login = login}
+        method || (method='login');  //по логину по умолчанию
+
+        switch (method){
+          case 'phone':
+            obj_login.phone = login;
+            break
+          case 'login':
+            obj_login.login = login;
+        }
 
         try {
             user = await userRepository.findOneOrFail({ where: obj_login});
