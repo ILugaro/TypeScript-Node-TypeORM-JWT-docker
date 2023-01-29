@@ -1,12 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, Unique, ManyToOne, JoinColumn} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, Unique, ManyToOne, JoinColumn, OneToOne} from "typeorm";
 import { Length, IsNotEmpty} from "class-validator";
 import {User} from "../user/user.models";
+import {Visit} from "../visit/visit.models";
 
 @Entity('car')
 @Unique(["number"])
 export class Car {
 
   @PrimaryGeneratedColumn()
+  @OneToOne(() => Visit, (visit) => visit.box)
   id: number;
 
   @Column()

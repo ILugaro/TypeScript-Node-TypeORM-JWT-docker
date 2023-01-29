@@ -34,6 +34,21 @@ class Controller {
     }
     return res.status(201).send("Автомобиль добавлен");
     };
+
+    static showCars = async (req: Request, res: Response): Promise<any> => {
+        let cars;
+        try {
+            cars = await dataSource.getRepository(Car)
+                .createQueryBuilder("car") 
+                .where(`owner_id = '${req.params.id}'`)
+                .getMany()
+        }
+        catch(e){
+            console.log(e);
+            return res.status(400).send(e);
+        }
+        return res.status(200).send(cars);
+    }
 }
 
 export default Controller;

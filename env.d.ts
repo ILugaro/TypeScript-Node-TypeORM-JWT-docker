@@ -13,6 +13,8 @@ declare global {
       JWT_EXPIRATION: string;
       
       SERVER_PORT: number;
+
+      LIFETIME_VISIT: string
     }
   }
 }
