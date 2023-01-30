@@ -54,7 +54,7 @@ class Controller {
         return res.send({ token });
       };
 
-    static signJWT = async (user: { id: any; login: any; phone: any; role: any; firstName: any; lastName: any }): Promise<string> => {
+    static signJWT = async (user: { id: any; role: any;}): Promise<string> => {
         const token = jwt.sign(
           {
             userId: user.id,
@@ -70,13 +70,11 @@ class Controller {
 
   //Создание нового пользователя
   static newUser = async (req: Request, res: Response): Promise<Response> => {
-        const { password, firstName, lastName, phone, login } = req.body;
+        const { password, phone, login, role='c' } = req.body;
         const user = new User();
 
         user.password = password;
-        user.role = 'c';
-        user.firstName = firstName;
-        user.lastName = lastName;
+        user.role = role;
         user.phone = phone;
         user.login = login;
 
@@ -94,6 +92,38 @@ class Controller {
         }
     return res.status(201).send('Пользователь создан!');
     };
+
+  static createFirstAdmin = async (req: Request, res: Response): Promise<Response> => {
+        const countUser = await dataSource.getRepository(User).count({where:{'role':'a'}})
+        if (countUser == 0 ){
+          const { password, phone, login } = req.body
+          const user = new User();
+          user.password = password;
+          user.login = login;
+          user.phone = phone;
+          user.role = 'a';
+
+          
+          const errors = await validate(user);
+          if (errors.length > 0) {
+              return res.status(400).send(errors);
+          }
+  
+          user.hashPassword();
+  
+          try {
+              await dataSource.manager.save(user)
+          } catch (e) {
+              return res.status(409).send(e);
+          }
+          return res.status(201).send('Пользователь создан!');
+        }
+        else{
+          return res.status(403).send('Данная функция приминяется только при регистрации первого администратора!');
+        }
+      
+    
+  }
 }
 
 export default Controller;
