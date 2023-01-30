@@ -9,6 +9,8 @@ import { Car } from "./api/car/car.models";
 import { Box } from "./api/box/box.models";
 import { Visit } from "./api/visit/visit.models";
 
+console.log('env.DB_HOST',process.env.PGADMIN_DEFAULT_EMAIL);
+
 class App {
   public express: express.Application;
 

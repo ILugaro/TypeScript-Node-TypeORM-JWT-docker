@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "nodemon app.ts",
-    "dev": "tsc"
+    "build": "tsc -b"
   },
   "keywords": [],
   "author": "",
