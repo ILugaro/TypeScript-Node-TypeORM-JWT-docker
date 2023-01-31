@@ -1,0 +1,449 @@
+{
+	"info": {
+		"_postman_id": "a12ecda2-613b-4343-b716-354a06c7686e",
+		"name": "WashAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10047805"
+	},
+	"item": [
+		{
+			"name": "New User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "password",
+							"value": "1234",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "+7991234567",
+							"type": "text"
+						},
+						{
+							"key": "login",
+							"value": "Username",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "c",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:4000/api/user",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Car",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImMiLCJpYXQiOjE2NzUxODg3NjAsImV4cCI6MTY3NTc5MzU2MH0.8pL7FkTQBfi7OAAfTSEvIB4H8yjSvO2Xpha7BaKMmFI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImxvZ2luIjoibHVnYXJvIiwicGhvbmUiOiI0MTQ0NDUiLCJyb2xlIjoiVVNFUiIsImZpcnN0TmFtZSI6ImRzZnNkZnNkZnMiLCJsYXN0TmFtZSI6ImRzZnNkZnNkZmRzZiIsImlhdCI6MTY3NDY3NDc4OCwiZXhwIjoxNjc1Mjc5NTg4fQ.tQX9zK6NXVy-qf6YOdFnRO04RUTriVDT-8l3qfGB5iw",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "number",
+							"value": "АР12345",
+							"type": "text"
+						},
+						{
+							"key": "brand",
+							"value": "BMW",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "341",
+							"type": "text"
+						},
+						{
+							"key": "owner_id",
+							"value": "1",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:4000/api/car",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"car"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "1234",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Username",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "localhost:4000/api/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show Boxs",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImEiLCJpYXQiOjE2NzUxODA3MDQsImV4cCI6MTY3NTc4NTUwNH0.2T-Z1tiF_Wh928c5Pm01Joj-UEQQUCBTRHFE1zoSUPk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "info",
+							"value": "full",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:4000/api/box",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"box"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Visit",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImEiLCJpYXQiOjE2NzUxOTA1MDQsImV4cCI6MTY3NTc5NTMwNH0.KH0AFS_2l0vRdV6-bHufJ8S87LtguKFMG7gbJDQ8sJE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "box",
+							"value": "A1",
+							"type": "text"
+						},
+						{
+							"key": "carId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "owner_id",
+							"value": "2",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:4000/api/visit",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"visit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Visit",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsInJvbGUiOiJjIiwiaWF0IjoxNjc1MTc3OTYwLCJleHAiOjE2NzU3ODI3NjB9.Akpu5KCOdHSttw1Pcx1GTDL-gSpBFqtAEsiQ4ZCG_SQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:4000/api/visit/A1",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"visit",
+						"A1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show Cars",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImMiLCJpYXQiOjE2NzUxODkwNDMsImV4cCI6MTY3NTc5Mzg0M30.Kr3fPH3YKnsJhQv9g5CuwYTEKT_tH82AJyd1b4oac_I",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:4000/api/car/1",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"car",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create First Admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "login",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "1234",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "15456847",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:4000/api/user/createFirstAdmin",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"user",
+						"createFirstAdmin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show Users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImEiLCJpYXQiOjE2NzUxODg5MzcsImV4cCI6MTY3NTc5MzczN30.xjcAZg1Wr-0C-SuFwnV4LjEh3lzGW6aCyZf0f4kTMUg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:4000/api/user/",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Car",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImEiLCJpYXQiOjE2NzUxODA3MDQsImV4cCI6MTY3NTc4NTUwNH0.2T-Z1tiF_Wh928c5Pm01Joj-UEQQUCBTRHFE1zoSUPk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:4000/api/car/АР12345",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"car",
+						"АР12345"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NewBox",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImEiLCJpYXQiOjE2NzUxOTA1MDQsImV4cCI6MTY3NTc5NTMwNH0.KH0AFS_2l0vRdV6-bHufJ8S87LtguKFMG7gbJDQ8sJE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "A1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:4000/api/box",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"box"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

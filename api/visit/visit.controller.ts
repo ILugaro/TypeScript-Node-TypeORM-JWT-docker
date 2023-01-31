@@ -1,3 +1,10 @@
+/*Посещения удаляются только при удалении соответствующих боксов.
+При прерывании посещения параметр "iscanseled" устанавливается в true
+Если же посещение закончено по времени, оно будет фильтроваться по "updatedAt"
+Это позволяет не следить за актуальностью данных в таблице visit.
+
+При создании нового посещение бокса - будет обновляться старое (если этот бокс ранее уже имел посещение). 
+Таким образом количество строк в таблице visit не будет превышать количество боксов. */
 import { Request, Response } from "express";
 import { validate } from "class-validator";
 import { Visit } from "../visit/visit.models"
@@ -52,6 +59,7 @@ class Controller {
         return res.status(400).send(errors);
     }
     try {
+    //тут планировалось использовать .orUpdate с параметром indexPredicate, но генерируемый SQL не соответствовал ожиданию и пришлось делать .insert и .update через try/catch  
     let update:any = await dataSource
       .createQueryBuilder()
       .update(Visit)
