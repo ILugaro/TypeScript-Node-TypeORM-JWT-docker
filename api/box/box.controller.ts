@@ -8,6 +8,37 @@ import {JwtPayload} from "../user/user.controller"
 
 class Controller {
 
+  //Создать бокс
+  static newBox = async (req: Request, res: Response): Promise<Response> => {
+    let token: JwtPayload;
+
+    try{
+      token = jwtDecode(req.headers.authorization as string);
+    }
+    catch (e){
+      return res.status(403).send(e);
+    }
+
+     if (token.role != 'a'){
+        return res.status(400).send('Для добавления бокса необходимы права администратора!');
+    }  
+
+    let box = new Box;
+    box.name = req.body.name
+    try{
+      await dataSource
+      .createQueryBuilder()
+      .insert()
+      .into(Box)
+      .values(box)
+      .execute()
+    }
+    catch (e:any){
+      return res.status(400).send(e);
+    }
+      return res.status(200).send("Новый бокс добавлен.");
+  }
+
   //Отправить список боксов 
   static showBoxs = async (req: Request, res: Response): Promise<Response> => {
     let boxs;

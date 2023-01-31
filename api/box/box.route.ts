@@ -11,6 +11,8 @@ export default class BoxRoutes {
         this.routes();
       }
     routes() {
+        //создать новый бокс
+        this.router.post('/', this.authController.authenticateJWT, Controller.newBox)
         //получение списка боксов
         this.router.get('/', this.authController.authenticateJWT, Controller.showBoxs)
     }

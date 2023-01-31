@@ -5,6 +5,7 @@ import {dataSource} from "../../app"
 import { Car } from "../car/car.models";
 import jwtDecode from "jwt-decode";
 import {JwtPayload} from "../user/user.controller"
+import { Box } from "../box/box.models";
 
 
 
@@ -17,7 +18,6 @@ class Controller {
   //регистрация посещения 
   static newVisit = async (req: Request, res: Response): Promise<Response> => {
     
- 
     let token: JwtPayload;
     try{
       token = jwtDecode(req.headers.authorization as string);
@@ -45,6 +45,7 @@ class Controller {
     visit.box = box
     visit.car = carId
     visit.iscanseled = false
+    visit.user = owner_id
 
     const errors = await validate(visit);
     if (errors.length > 0) {
@@ -59,6 +60,7 @@ class Controller {
       .execute()
 
       if (update.affected == 0){ //обновления не было так как на этот бокс еще никогда не было посещений (или клиент пытается занять уже занятый бокс)
+
         try{
           await dataSource
           .createQueryBuilder()
@@ -69,8 +71,9 @@ class Controller {
         }
         catch (e:any){
           if ('code' in e && e.code == '23505'){
-            return res.status(400).send("Данный бокс уже занят.");
+            return res.status(400).send("Данный бокс уже занят или данный автомобиль уже имеет активное посещение");
           }
+          return res.status(400).send(e);
         }
       }
     } 
@@ -93,18 +96,18 @@ class Controller {
         return res.status(403).send(e);
       }
   
-      if (token.role != 'a'){
-          return res.status(400).send('Для изменения данных другого пользователя необходимы права администратора!');
-      }  
-      let {box, carId, owner_id} = req.body;
+      let {owner_id} = req.body;
       owner_id = owner_id||token.id;
       const userRepository = dataSource.getRepository(Visit);
-      try {
-        await userRepository.findOneOrFail({ where: {box: req.params.id}});
-    } catch (error) {
-      return res.status(401).send(`Клиент с id ${owner_id} не имеет автомобиля с id ${carId}`);
-    }
-
+      let box = new Box; 
+      box.name = req.params.id
+      if (token.role != 'a'){
+        try {
+          await userRepository.findOneOrFail({ where: {user: token.id, box: box}});
+        } catch (error) {
+          return res.status(401).send(`Клиент с id ${token.id} не занимает бокс ${req.params.id}`);
+        }
+      }  
       await dataSource
         .createQueryBuilder()
         .update(Visit)

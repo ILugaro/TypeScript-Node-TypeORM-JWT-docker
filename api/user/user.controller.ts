@@ -4,6 +4,7 @@ import { User } from "../user/user.models"
 import {dataSource} from "../../app"
 import * as jwt from "jsonwebtoken";
 import 'dotenv/config';
+import jwtDecode from "jwt-decode";
 
 const JWT_SECRET_KEY:string = process.env.JWT_SECRET_KEY as string;
 const JWT_EXPIRATION:string = process.env.JWT_EXPIRATION as string;
@@ -126,6 +127,36 @@ class Controller {
           return res.status(403).send('Данная функция приминяется только при регистрации первого администратора!');
         }
   }
+  static showUsers = async (req: Request, res: Response): Promise<Response> => {
+    let token: JwtPayload;
+    let users;
+    try{
+      token = jwtDecode(req.headers.authorization as string);
+    }
+    catch (e){
+      return res.status(403).send(e);
+    }
+
+     if (token.role != 'a'){
+        return res.status(400).send('Для просмотра данных другого пользователя необходимы права администратора!');
+    }  
+
+    try {
+      users = await dataSource.getRepository(User)
+          .createQueryBuilder("user")
+          .select('user.login') 
+          .addSelect('user.phone') 
+          .addSelect('user.role') 
+          .addSelect('user.id') 
+          .getMany()
+  }
+  catch(e){
+      console.log(e);
+      return res.status(400).send(e);
+  }
+  return res.status(200).send(users);
+  }
+  
 }
 
 export default Controller;

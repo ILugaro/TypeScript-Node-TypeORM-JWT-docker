@@ -28,8 +28,7 @@ export class Car {
   owner_id: number;
 
   @ManyToOne(
-    () => User,
-    (user) => user.id,
+    () => User, (user) => user.id,
     {
         onDelete: 'CASCADE',
     })

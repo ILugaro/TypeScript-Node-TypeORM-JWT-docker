@@ -14,6 +14,8 @@ export default class CarRoutes {
     routes() {
         //добавление нового пользователя
         this.router.post('/', Controller.newUser);
+        //список пользователей (только для администратора)
+        this.router.get("/", Controller.showUsers)
         //авторизация
         this.router.post("/login", Controller.login);
         //создание первого администратора
