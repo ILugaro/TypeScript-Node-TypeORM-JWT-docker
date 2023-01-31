@@ -37,4 +37,5 @@ export class Car {
 		name: 'owner_id',
 	})
 	user: User;
+
 }

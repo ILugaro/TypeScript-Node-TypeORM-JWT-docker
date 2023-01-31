@@ -12,8 +12,8 @@ export default class VisitRoutes {
       }
     routes() {
         //регистрация посещения бокса
-        this.router.post('/', /*this.authController.authenticateJWT,*/ Controller.newVisit)
+        this.router.post('/', this.authController.authenticateJWT, Controller.newVisit)
         //прекращение посещения (досрочное)
-        this.router.delete('/:id', /*this.authController.authenticateJWT,*/ Controller.stopVisit)
+        this.router.delete('/:id', this.authController.authenticateJWT, Controller.stopVisit)
     }
 }

@@ -8,6 +8,11 @@ import 'dotenv/config';
 const JWT_SECRET_KEY:string = process.env.JWT_SECRET_KEY as string;
 const JWT_EXPIRATION:string = process.env.JWT_EXPIRATION as string;
 
+ export interface JwtPayload {
+  id: number
+  role: string
+}
+
 class Controller {
 
     // Аунтификация
@@ -26,7 +31,6 @@ class Controller {
         let user: User;
 
         //определяется тип аунтификации - по номеру или по логину.
-        
         let obj_login:{phone?:string, login?:string} = {};
         method || (method='login');  //по логину по умолчанию
 
@@ -54,10 +58,10 @@ class Controller {
         return res.send({ token });
       };
 
-    static signJWT = async (user: { id: any; role: any;}): Promise<string> => {
+    static signJWT = async (user: JwtPayload): Promise<string> => {
         const token = jwt.sign(
           {
-            userId: user.id,
+            id: user.id,
             role: user.role,
           },
           JWT_SECRET_KEY,
@@ -121,8 +125,6 @@ class Controller {
         else{
           return res.status(403).send('Данная функция приминяется только при регистрации первого администратора!');
         }
-      
-    
   }
 }
 

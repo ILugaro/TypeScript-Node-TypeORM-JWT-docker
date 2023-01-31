@@ -21,5 +21,6 @@ export class Visit {
 
   @OneToOne(() => Box, (box) => box.visit)
   @JoinColumn()
-  box: Box
+  //box: Box
+  box:string
 } 

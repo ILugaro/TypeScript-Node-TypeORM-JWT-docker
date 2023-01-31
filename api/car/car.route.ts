@@ -14,6 +14,6 @@ export default class CarRoutes {
         //добавление нового автомобиля
         this.router.post('/', this.authController.authenticateJWT, Controller.newCar)
         //получить список автомобилей пользователя
-        this.router.get('/:id', /*this.authController.authenticateJWT,*/ Controller.showCars)
+        this.router.get('/:id', this.authController.authenticateJWT, Controller.showCars)
     }
 }

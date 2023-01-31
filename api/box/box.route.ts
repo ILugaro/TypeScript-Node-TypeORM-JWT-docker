@@ -12,6 +12,6 @@ export default class BoxRoutes {
       }
     routes() {
         //получение списка боксов
-        this.router.get('/', /*this.authController.authenticateJWT,*/ Controller.showBoxs)
+        this.router.get('/', this.authController.authenticateJWT, Controller.showBoxs)
     }
 }
